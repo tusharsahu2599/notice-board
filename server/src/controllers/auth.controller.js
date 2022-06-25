@@ -19,8 +19,6 @@ const register = async function(req, res) {
 
         const token = newToken(user);
 
-        
-
         res.send({ user, token });
         // console.log(user, token)
     } catch (err) {
@@ -52,4 +50,29 @@ const login = async(req, res) => {
             res.status(500).send({ message: err.message })
         }
     }
-    module.exports = { register, login}
+
+
+    //  Get User Details
+
+    const getUser = async(req, res) => {
+        try {
+            const user = await User.findById(req.params.id).lean().exec();
+            res.send(user);
+        }
+        catch(err){
+            res.status(500).send({ message: err.message })
+        }
+    }
+
+
+    const getUsers = async(req, res) =>{
+        try{
+            const users = await User.find().lean().exec();
+            res.send(users);
+        }catch(err){
+            res.status(500).send({ message: err.message })
+        }
+    }
+
+
+    module.exports = { register, login, getUser, getUsers};

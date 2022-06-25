@@ -6,7 +6,7 @@ const noticeSchema = new mongoose.Schema({
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required: true,
+      required: false,
     },
     postDate: { type: Date, required: true}
   },

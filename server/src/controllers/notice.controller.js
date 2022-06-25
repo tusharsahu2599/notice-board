@@ -6,9 +6,9 @@ const authenticate = require("../middlewares/authenticate");
 
 const router = express.Router();
 
-router.post("/", authenticate, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    req.body.user_id = req.user._id;
+    // req.body.user_id = req.user._id;
     req.body.postDate = Date.now();
     const notice = await Notice.create(req.body);
 
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const notice = await Notice.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -57,7 +57,7 @@ router.put("/:id", authenticate, async (req, res) => {
 });
 
 
-router.delete("/:id", authenticate, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const notice = await Notice.findByIdAndDelete(req.params.id).lean().exec();
 
